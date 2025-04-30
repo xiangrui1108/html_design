@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../base_style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <title>AI发展历程时间线</title>
+    <style>
+        /* 全局样式 */
+        body {
+            background-image: url('timeline_bg.png');
+            background-size: cover;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        /* S型时间线样式 */
+        .s-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .s-timeline::before {
+            content: "";
+            position: absolute;
+            width: 3px;
+            background-color: #007BFF;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+
+        .s-timeline__content {
+            position: relative;
+            width: 50%;
+            padding: 10px 40px;
+            box-sizing: border-box;
+            margin-bottom: 40px;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            cursor: pointer;
+        }
+
+        .s-timeline__content:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        .s-timeline__content:nth-child(odd) {
+            left: 0%;
+            text-align: right;
+        }
+
+        .s-timeline__content h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        .s-timeline__content p {
+            margin: 0;
+            color: #777;
+        }
+
+        /* 强调展示样式 - 左侧 */
+        .s-timeline__content:nth-child(odd).active {
+            transform: scale(1.2) translateX(-12%);
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+        }
+
+        /* 强调展示样式 - 右侧 */
+        .s-timeline__content:nth-child(even).active {
+            transform: scale(1.2) translateX(12%);
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+        }
+
+        /* 时间线圆点样式 */
+        .s-timeline__dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #007BFF;
+            border-radius: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+            z-index: 1;
+            transition: top 0.5s ease;
+            /* 添加过渡效果 */
+        }
+
+        /* 弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 70%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #007BFF;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .modal-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .modal-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #777;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .s-timeline__content {
+                width: 100%;
+                padding: 10px 20px;
+                text-align: left !important;
+                left: 0 !important;
+            }
+
+            .s-timeline::before {
+                left: 20px;
+            }
+
+            .s-timeline__content:nth-child(odd).active,
+            .s-timeline__content:nth-child(even).active {
+                transform: scale(1.1) translateX(0);
+            }
+
+            .s-timeline__dot {
+                left: 20px;
+            }
+
+            .modal-content {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- 导航栏 -->
+    <nav class="py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <img src="../index_resources/logo.png" alt="logo" class="h-8 w-auto mr-[-56rem] mt-0">
+            <a href="#" class="text-xl font-bold">AI知识宇宙</a>
+            <div class="space-x-4">
+                <a href="../nav1_timeline/timeline.html" class="hover:underline">发展轨迹</a>
+                <a href="../nav2_news/news.html" class="hover:underline">行业动态</a>
+                <a href="../nav3_examples/examples.html" class="hover:underline">案例展示</a>
+                <a href="../nav4_papers/papers.html" class="hover:underline">文献汇总</a>
+                <a href="../nav5_tools/tools.html" class="hover:underline">工具资源</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 时间线内容区域 -->
+    <div class="container mx-auto px-4 py-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">AI发展历程时间线</h2>
+        <div class="s-timeline" id="timeline">
+            <!-- 只保留一个圆点 -->
+            <span class="s-timeline__dot" id="moving-dot"></span>
+            <!-- 时间点1 -->
+            <div class="s-timeline__content" data-modal-id="modal1">
+                <h3>1940s</h3>
+                <p>艾伦·图灵提出图灵机的概念，为计算机科学和AI理论奠定基础。随后在1950年，他又发表了论文《计算机器与智能》，提出了著名的"图灵测试"，为判断机器是否具有智能提供了一种标准。</p>
+            </div>
+            <!-- 时间点2 -->
+            <div class="s-timeline__content" data-modal-id="modal2">
+                <h3>1950s</h3>
+                <p>1956年，达特茅斯会议上首次提出"人工智能"概念，标志着人工智能正式成为一个学科。同年，阿伦·纽厄尔和赫伯特·西蒙开发出第一个AI程序"逻辑理论家"，证明了数学原理中的38条定理。</p>
+            </div>
+            <!-- 时间点3 -->
+            <div class="s-timeline__content" data-modal-id="modal3">
+                <h3>1960s</h3>
+                <p>AI研究主要集中在符号主义方法上，通过符号表示知识，使用推理规则进行推理。约瑟夫·魏泽鲍姆开发了ELIZA程序，它是最早能与人对话的程序之一。</p>
+            </div>
+            <!-- 时间点4 -->
+            <div class="s-timeline__content" data-modal-id="modal4">
+                <h3>1970s</h3>
+                <p>受限于计算机性能，AI发展进入瓶颈期，进入"第一次AI寒冬"。不过，专家系统在这一时期开始兴起，如MYCIN系统可用于诊断和治疗感染性疾病。</p>
+            </div>
+            <!-- 时间点5 -->
+            <div class="s-timeline__content" data-modal-id="modal5">
+                <h3>1980s</h3>
+                <p>日本发起第五代计算机项目，旨在开发具有人工智能的计算机，引发了全球对AI的新一轮关注。神经网络研究也在这一时期取得一定进展，但随后因一些技术难题又陷入低谷。</p>
+            </div>
+            <!-- 时间点6 -->
+            <div class="s-timeline__content" data-modal-id="modal6">
+                <h3>1990s</h3>
+                <p>机器学习算法得到广泛研究和应用，如决策树、支持向量机等。1997年，IBM的深蓝计算机击败国际象棋冠军加里·卡斯帕罗夫，展示了AI在复杂游戏中的强大能力。</p>
+            </div>
+            <!-- 时间点7 -->
+            <div class="s-timeline__content" data-modal-id="modal7">
+                <h3>2000s</h3>
+                <p>随着互联网数据的爆炸式增长和计算能力的提升，AI迎来新的发展机遇。深度学习开始崭露头角，在图像识别、语音识别等领域取得突破。</p>
+            </div>
+            <!-- 时间点8 -->
+            <div class="s-timeline__content" data-modal-id="modal8">
+                <h3>2010s</h3>
+                <p>深度学习取得巨大成功，卷积神经网络（CNN）在图像识别领域取得重大突破，循环神经网络（RNN）及其变体在自然语言处理领域表现出色。AlphaGo击败人类围棋冠军，引发全球对AI的高度关注。</p>
+            </div>
+            <!-- 时间点9 -->
+            <div class="s-timeline__content" data-modal-id="modal9">
+                <h3>2020s</h3>
+                <p>大语言模型迅速发展，如GPT系列模型展示了强大的语言理解和生成能力，推动了自然语言处理技术的广泛应用。AI在医疗、交通、教育等众多领域的应用不断拓展和深化。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗区域 -->
+    <!-- 弹窗1 -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">1940s - 图灵与计算机理论</h2>
+            <img src="resources/Alan_Turing.png" alt="艾伦·图灵"
+                class="modal-image">
+            <p class="modal-text">
+                艾伦·图灵(1912-1954)是英国数学家、逻辑学家，被誉为计算机科学和人工智能之父。1936年，他提出了图灵机的概念，这是一种抽象计算模型，能够模拟任何算法过程，为现代计算机奠定了理论基础。</p>
+            <p class="modal-text">
+                1950年，图灵发表了开创性论文《计算机器与智能》，提出了著名的"图灵测试"：如果一台机器能够与人类对话而不被辨别出其机器身份，那么就可以认为这台机器具有智能。这一测试至今仍是人工智能领域的重要概念。</p>
+            <p class="modal-text">图灵在二战期间还领导了破解德国Enigma密码的工作，为盟军胜利做出了重大贡献。他设计的"炸弹"解密机被认为是现代计算机的前身之一。</p>
+        </div>
+    </div>
+
+    <!-- 弹窗2 -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">1950s - 人工智能的诞生</h2>
+            <img src="resources/Dartmouth_College.png"
+                alt="达特茅斯学院" class="modal-image">
+            <p class="modal-text">
+                1956年夏天，约翰·麦卡锡、马文·明斯基、克劳德·香农等科学家在达特茅斯学院召开了一次为期两个月的研讨会，首次提出了"人工智能"这一术语，标志着人工智能作为一个独立研究领域的诞生。</p>
+            <p class="modal-text">同年，阿伦·纽厄尔和赫伯特·西蒙开发了"逻辑理论家"(Logic
+                Theorist)程序，这是第一个专门设计用于模拟人类问题解决能力的程序。它成功证明了《数学原理》中的38条定理，其中一些证明比原书中的更为简洁。</p>
+            <p class="modal-text">这一时期还诞生了第一个神经网络模型——感知机(Perceptron)，由弗兰克·罗森布拉特于1957年提出，为后来的深度学习奠定了基础。</p>
+        </div>
+    </div>
+
+    <!-- 弹窗3 -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">1960s - 符号主义AI的兴起</h2>
+            <img src="resources/ELIZA.png" alt="ELIZA程序"
+                class="modal-image">
+            <p class="modal-text">1960年代，AI研究主要采用符号主义方法，即通过符号表示知识，使用推理规则进行问题求解。这一时期开发了许多基于规则的专家系统原型。</p>
+            <p class="modal-text">
+                1966年，约瑟夫·魏泽鲍姆在MIT开发了ELIZA程序，这是最早的能够模拟人类对话的程序之一。它使用简单的模式匹配和替换技术来模拟心理治疗师的对话方式，虽然实际上并不理解对话内容，但有时能产生令人惊讶的"智能"效果。
+            </p>
+            <p class="modal-text">1969年，斯坦福研究所开发了Shakey机器人，这是第一个能够感知环境并进行简单推理的移动机器人，被认为是机器人学和计算机视觉领域的重要里程碑。</p>
+        </div>
+    </div>
+
+    <!-- 弹窗4 -->
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">1970s - AI寒冬与专家系统</h2>
+            <img src="resources/MYCIN.png" alt="MYCIN系统"
+                class="modal-image">
+            <p class="modal-text">1970年代，由于早期AI研究未能兑现其承诺，加上计算能力的限制，AI研究资金大幅减少，进入了所谓的"AI寒冬"。许多研究项目被取消或缩减规模。</p>
+            <p class="modal-text">尽管如此，专家系统在这一时期开始兴起。1972年，斯坦福大学开发的MYCIN系统能够诊断血液感染疾病并推荐抗生素治疗方案，准确率与人类专家相当。这是最早的成功专家系统之一。
+            </p>
+            <p class="modal-text">1979年，斯坦福大学还开发了第一个商用专家系统XCON，用于配置DEC公司的VAX计算机系统，每年为公司节省数千万美元。</p>
+        </div>
+    </div>
+
+    <!-- 弹窗5 -->
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">1980s - 第五代计算机与神经网络</h2>
+            <img src="resources/5th.png" alt="第五代计算机"
+                class="modal-image">
+            <p class="modal-text">1981年，日本通商产业省启动了"第五代计算机系统"项目，计划开发能够推理、学习和理解自然语言的计算机系统，引发了全球对AI的新一轮关注和投资。</p>
+            <p class="modal-text">1982年，约翰·霍普菲尔德提出了霍普菲尔德网络，这是一种全连接的递归神经网络，能够存储和检索模式。1986年，反向传播算法的重新发现使得训练多层神经网络成为可能。</p>
+            <p class="modal-text">1987年，IBM的TD-Gammon程序使用强化学习技术达到了世界级西洋双陆棋水平，展示了机器学习在游戏领域的潜力。</p>
+        </div>
+    </div>
+
+    <!-- 弹窗6 -->
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">1990s - 机器学习与深蓝</h2>
+            <img src="resources/shenlan.png" alt="深蓝计算机"
+                class="modal-image">
+            <p class="modal-text">1990年代，机器学习算法得到广泛应用，包括决策树、支持向量机(SVM)和贝叶斯网络等。1995年，Yann LeCun等人成功应用卷积神经网络(CNN)进行手写数字识别。
+            </p>
+            <p class="modal-text">1997年，IBM的"深蓝"超级计算机击败国际象棋世界冠军加里·卡斯帕罗夫，这是AI首次在智力游戏中战胜人类顶尖选手，引发了全球轰动。</p>
+            <p class="modal-text">1998年，微软推出了Clippy(回形针助手)，这是最早广泛部署的对话式AI助手之一，虽然用户体验褒贬不一，但为后来的智能助手奠定了基础。</p>
+        </div>
+    </div>
+
+    <!-- 弹窗7 -->
+    <div id="modal7" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">2000s - 互联网与深度学习</h2>
+            <img src="resources/cnn.png" alt="神经网络"
+                class="modal-image">
+            <p class="modal-text">2000年代，随着互联网的普及和计算能力的提升，AI研究迎来了新的机遇。2006年，Geoffrey Hinton等人提出了深度信念网络，开启了深度学习的新时代。</p>
+            <p class="modal-text">
+                2009年，ImageNet大规模视觉识别挑战赛(ILSVRC)启动，为计算机视觉研究提供了标准数据集和评估平台。2012年，AlexNet在ImageNet竞赛中大幅领先其他方法，证明了深度学习的强大能力。
+            </p>
+            <p class="modal-text">2009年，谷歌开始开发自动驾驶汽车项目(后来的Waymo)，展示了AI在复杂现实问题中的应用潜力。</p>
+        </div>
+    </div>
+
+    <!-- 弹窗8 -->
+    <div id="modal8" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">2010s - 深度学习革命</h2>
+            <img src="resources/AlphaGo.png" alt="AlphaGo对战李世石"
+                class="modal-image">
+            <p class="modal-text">2010年代，深度学习在多个领域取得突破性进展。2014年，生成对抗网络(GAN)被提出，能够生成逼真的图像、视频等内容。</p>
+            <p class="modal-text">2016年，DeepMind的AlphaGo以4:1击败围棋世界冠军李世石，围棋被认为是比国际象棋复杂得多的游戏，这一成就被视为AI发展的里程碑。</p>
+            <p class="modal-text">2017年，Transformer架构被提出，彻底改变了自然语言处理领域。同年，AlphaZero通过自我对弈学习，在围棋、国际象棋和日本将棋上都达到了超人类水平。</p>
+        </div>
+    </div>
+
+    <!-- 弹窗9 -->
+    <div id="modal9" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">2020s - 大语言模型时代</h2>
+            <img src="resources/ChatGPT.png" alt="ChatGPT"
+                class="modal-image">
+            <p class="modal-text">2020年代，大语言模型(LLM)迅速发展。2020年，OpenAI发布了GPT-3，拥有1750亿参数，展示了惊人的语言理解和生成能力。</p>
+            <p class="modal-text">2022年，ChatGPT的发布引发了全球对生成式AI的关注，它能够进行流畅对话、编写代码、创作故事等，展示了AI在日常应用中的潜力。</p>
+            <p class="modal-text">AI在医疗、科学研究、艺术创作等领域的应用不断深化。2023年，DeepMind的AlphaFold2解决了蛋白质结构预测这一重大科学难题，展示了AI在科学研究中的价值。
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const timelineElements = document.querySelectorAll('.s-timeline__content');
+        const movingDot = document.getElementById('moving-dot');
+        let currentIndex = 0;
+
+        // 自动切换功能
+        function showElement(index) {
+            timelineElements.forEach((element, i) => {
+                if (i === index) {
+                    element.classList.add('active');
+                    const rect = element.getBoundingClientRect();
+                    const timelineRect = document.getElementById('timeline').getBoundingClientRect();
+                    const topPosition = rect.top + rect.height / 2 - timelineRect.top;
+                    movingDot.style.top = topPosition + 'px';
+                } else {
+                    element.classList.remove('active');
+                }
+            });
+        }
+
+        function nextElement() {
+            currentIndex = (currentIndex + 1) % timelineElements.length;
+            showElement(currentIndex);
+        }
+
+        showElement(currentIndex);
+        setInterval(nextElement, 3000); // 3秒切换
+
+        // 弹窗功能
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.close-btn');
+
+        // 为每个时间线卡片添加点击事件
+        timelineElements.forEach(element => {
+            element.addEventListener('click', function () {
+                const modalId = this.getAttribute('data-modal-id');
+                const modal = document.getElementById(modalId);
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
+            });
+        });
+
+        // 为关闭按钮添加事件
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                this.closest('.modal').style.display = 'none';
+                document.body.style.overflow = 'auto'; // 恢复背景滚动
+            });
+        });
+
+        // 点击模态框外部关闭
+        modals.forEach(modal => {
+            modal.addEventListener('click', function (e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // 按ESC键关闭
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                modals.forEach(modal => {
+                    if (modal.style.display === 'flex') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-logo">AI知识宇宙</div>
+                <p class="text-white/80">探索人工智能前沿，分享行业洞见</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="https://github.com/xiangrui1108/html_design"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-links">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="../nav1_timeline/timeline.html">发展轨迹</a></li>
+                    <li><a href="../nav2_news/news.html">行业动态</a></li>
+                    <li><a href="../nav3_examples/examples.html">案例展示</a></li>
+                    <li><a href="../nav4_papers/papers.html">文献汇总</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>资源中心</h3>
+                <ul>
+                    <li><a href="../nav5_tools/tools.html">开源框架</a></li>
+                    <li><a href="../nav5_tools/tools.html#platforms">在线平台</a></li>
+                    <li><a href="../nav5_tools/tools.html#datasets">数据集</a></li>
+                    <li><a href="../nav5_tools/tools.html#dev-tools">开发工具</a></li>
+                    <li><a href="../nav5_tools/tools.html#learning">学习资源</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>联系我们</h3>
+                <ul>
+                    <li><i class="fas fa-envelope mr-2"></i> seliu@whut.edu.cn</li>
+                    <li><i class="fas fa-phone mr-2"></i> +86 178 5396 1108</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> 珞狮路122号 武汉理工大学</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="copyright">
+            © 2025 AI知识宇宙. 保留所有权利.
+        </div>
+    </footer>
+</body>
+
+</html>

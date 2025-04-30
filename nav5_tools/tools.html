@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI领域知识 - 工具资源</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../base_style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007BFF;
+            --secondary: #00BFFF;
+            --accent: #FFC107;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        /* 导航栏样式（与原页面完全一致） */
+        nav {
+            background: linear-gradient(90deg, #007BFF, #00BFFF);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav a {
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #FFC107;
+        }
+
+        /* 主容器 */
+        .main-container {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        /* 侧边导航 */
+        .side-nav {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            color: #475569;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .nav-item i {
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        /* 内容区域 */
+        .content-area {
+            display: grid;
+            gap: 2rem;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* 框架卡片 */
+        .framework-card {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.3s ease;
+        }
+
+        .framework-card:last-child {
+            border-bottom: none;
+        }
+
+        .framework-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: contain;
+            padding: 0.5rem;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .framework-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .framework-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .framework-desc {
+            color: #475569;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .framework-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .framework-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .framework-link.primary {
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .framework-link.primary:hover {
+            background: rgba(0, 123, 255, 0.2);
+        }
+
+        .framework-link.secondary {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .framework-link.secondary:hover {
+            background: rgba(108, 117, 125, 0.2);
+        }
+
+        /* 平台列表 */
+        .platform-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .platform-item {
+            display: grid;
+            grid-template-columns: 40px 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .platform-item:hover {
+            background: #f8fafc;
+        }
+
+        .platform-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .platform-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1e293b;
+        }
+
+        .platform-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .platform-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .platform-tag.free {
+            background: #e6f7e6;
+            color: #2e7d32;
+        }
+
+        .platform-tag.premium {
+            background: #fff8e1;
+            color: #ff8f00;
+        }
+
+        /* 数据集分类 */
+        .dataset-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .dataset-category {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .dataset-category:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .dataset-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .dataset-item {
+            padding: 0.75rem;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .dataset-item:hover {
+            background: #f1f5f9;
+        }
+
+        .dataset-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: #1e293b;
+        }
+
+        .dataset-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .dataset-link {
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dataset-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 开发工具 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .tool-content {
+            padding: 1.25rem;
+        }
+
+        .tool-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .tool-desc {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .tool-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .tool-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #ffc107;
+        }
+
+        /* 学习资源 */
+        .resource-tabs {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+        }
+
+        .resource-tab {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            color: #64748b;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .resource-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .resource-tab:hover:not(.active) {
+            color: #475569;
+        }
+
+        .resource-content {
+            display: none;
+        }
+
+        .resource-content.active {
+            display: block;
+        }
+
+        .resource-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .resource-item {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .resource-item:hover {
+            background: #f8fafc;
+        }
+
+        .resource-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .resource-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1e293b;
+        }
+
+        .resource-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .resource-level {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .resource-level.beginner {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .resource-level.intermediate {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .resource-level.advanced {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        /* 页脚 */
+        footer {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .side-nav {
+                position: static;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .framework-card {
+                grid-template-columns: 1fr;
+            }
+
+            .dataset-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <img src="../index_resources/logo.png" alt="logo" class="h-8 w-auto mr-[-56rem] mt-0">
+            <a href="#" class="text-xl font-bold">AI知识宇宙</a>
+            <div class="space-x-4">
+                <a href="../nav1_timeline/timeline.html" class="hover:underline">发展轨迹</a>
+                <a href="../nav2_news/news.html" class="hover:underline">行业动态</a>
+                <a href="../nav3_examples/examples.html" class="hover:underline">案例展示</a>
+                <a href="../nav4_papers/papers.html" class="hover:underline">文献汇总</a>
+                <a href="../nav5_tools/tools.html" class="hover:underline">工具资源</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 侧边导航 -->
+        <aside class="side-nav">
+            <a href="#open-source" class="nav-item active">
+                <i class="fas fa-code-branch"></i> 开源框架
+            </a>
+            <a href="#platforms" class="nav-item">
+                <i class="fas fa-cloud"></i> 在线平台
+            </a>
+            <a href="#datasets" class="nav-item">
+                <i class="fas fa-database"></i> 数据集
+            </a>
+            <a href="#dev-tools" class="nav-item">
+                <i class="fas fa-tools"></i> 开发工具
+            </a>
+            <a href="#learning" class="nav-item">
+                <i class="fas fa-graduation-cap"></i> 学习资源
+            </a>
+        </aside>
+
+        <!-- 内容区域 -->
+        <main class="content-area">
+            <!-- 开源框架 -->
+            <section id="open-source" class="card animate-fadeIn">
+                <div class="card-header">
+                    <h2 class="card-title">开源框架</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="framework-card">
+                        <img src="resources\torch.png" alt="PyTorch" class="framework-logo">
+                        <div class="framework-content">
+                            <h3>PyTorch</h3>
+                            <div class="framework-meta">
+                                <span><i class="fas fa-star"></i> 4.8/5.0</span>
+                                <span><i class="fas fa-calendar-alt"></i> 最新版本: 2.2.0</span>
+                                <span><i class="fas fa-tag"></i> 深度学习</span>
+                            </div>
+                            <p class="framework-desc">
+                                Facebook开发的Python优先深度学习框架，提供强大的GPU加速张量计算和动态神经网络构建功能，适合研究和生产环境。
+                            </p>
+                            <div class="framework-links">
+                                <a href="https://pytorch.org" class="framework-link primary">
+                                    <i class="fas fa-globe"></i> 官方网站
+                                </a>
+                                <a href="https://pytorch.org/tutorials" class="framework-link secondary">
+                                    <i class="fas fa-book"></i> 官方教程
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="framework-card">
+                        <img src="resources\tensorflow.png" alt="TensorFlow" class="framework-logo">
+                        <div class="framework-content">
+                            <h3>TensorFlow</h3>
+                            <div class="framework-meta">
+                                <span><i class="fas fa-star"></i> 4.7/5.0</span>
+                                <span><i class="fas fa-calendar-alt"></i> 最新版本: 2.15.0</span>
+                                <span><i class="fas fa-tag"></i> 机器学习</span>
+                            </div>
+                            <p class="framework-desc">
+                                Google开发的端到端开源机器学习平台，支持从研究到生产的全流程，提供丰富的工具、库和社区资源。
+                            </p>
+                            <div class="framework-links">
+                                <a href="https://tensorflow.org" class="framework-link primary">
+                                    <i class="fas fa-globe"></i> 官方网站
+                                </a>
+                                <a href="https://www.tensorflow.org/tutorials" class="framework-link secondary">
+                                    <i class="fas fa-book"></i> 官方教程
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="framework-card">
+                        <img src="resources\scikit-learn.png" alt="Scikit-learn" class="framework-logo">
+                        <div class="framework-content">
+                            <h3>Scikit-learn</h3>
+                            <div class="framework-meta">
+                                <span><i class="fas fa-star"></i> 4.6/5.0</span>
+                                <span><i class="fas fa-calendar-alt"></i> 最新版本: 1.3.2</span>
+                                <span><i class="fas fa-tag"></i> 传统机器学习</span>
+                            </div>
+                            <p class="framework-desc">
+                                基于Python的机器学习库，内置大量经典算法实现，提供简单高效的数据挖掘和数据分析工具，适合中小规模数据集。
+                            </p>
+                            <div class="framework-links">
+                                <a href="https://scikit-learn.org" class="framework-link primary">
+                                    <i class="fas fa-globe"></i> 官方网站
+                                </a>
+                                <a href="https://scikit-learn.org/stable/tutorial/index.html"
+                                    class="framework-link secondary">
+                                    <i class="fas fa-book"></i> 官方教程
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 在线平台 -->
+            <section id="platforms" class="card animate-fadeIn delay-100">
+                <div class="card-header">
+                    <h2 class="card-title">在线平台</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="platform-list">
+                        <div class="platform-item">
+                            <div class="platform-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="platform-info">
+                                <h3>Hugging Face</h3>
+                                <div class="platform-meta">
+                                    <span>自然语言处理</span>
+                                    <span>模型托管与共享</span>
+                                </div>
+                            </div>
+                            <div class="platform-tag free">免费</div>
+                        </div>
+
+                        <div class="platform-item">
+                            <div class="platform-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="platform-info">
+                                <h3>Kaggle</h3>
+                                <div class="platform-meta">
+                                    <span>数据科学竞赛</span>
+                                    <span>Notebook环境</span>
+                                </div>
+                            </div>
+                            <div class="platform-tag free">免费</div>
+                        </div>
+
+                        <div class="platform-item">
+                            <div class="platform-icon">
+                                <i class="fab fa-google"></i>
+                            </div>
+                            <div class="platform-info">
+                                <h3>Google Colab</h3>
+                                <div class="platform-meta">
+                                    <span>云端Python环境</span>
+                                    <span>免费GPU资源</span>
+                                </div>
+                            </div>
+                            <div class="platform-tag free">免费</div>
+                        </div>
+
+                        <div class="platform-item">
+                            <div class="platform-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="platform-info">
+                                <h3>Gradient by Paperspace</h3>
+                                <div class="platform-meta">
+                                    <span>云端GPU训练</span>
+                                    <span>Jupyter环境</span>
+                                </div>
+                            </div>
+                            <div class="platform-tag premium">付费</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 数据集 -->
+            <section id="datasets" class="card animate-fadeIn delay-200">
+                <div class="card-header">
+                    <h2 class="card-title">数据集</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="dataset-categories">
+                        <div class="dataset-category">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                                <h3 class="category-title">图像数据集</h3>
+                            </div>
+                            <div class="dataset-list">
+                                <div class="dataset-item">
+                                    <div class="dataset-name">MNIST</div>
+                                    <div class="dataset-meta">
+                                        <span>手写数字识别</span>
+                                        <a href="http://yann.lecun.com/exdb/mnist/" class="dataset-link">下载</a>
+                                    </div>
+                                </div>
+                                <div class="dataset-item">
+                                    <div class="dataset-name">ImageNet</div>
+                                    <div class="dataset-meta">
+                                        <span>1400万张图像</span>
+                                        <a href="https://www.image-net.org/" class="dataset-link">下载</a>
+                                    </div>
+                                </div>
+                                <div class="dataset-item">
+                                    <div class="dataset-name">COCO</div>
+                                    <div class="dataset-meta">
+                                        <span>目标检测与分割</span>
+                                        <a href="http://images.cocodataset.org/zips/val2017.zip"
+                                            class="dataset-link">下载</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dataset-category">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-font"></i>
+                                </div>
+                                <h3 class="category-title">文本数据集</h3>
+                            </div>
+                            <div class="dataset-list">
+                                <div class="dataset-item">
+                                    <div class="dataset-name">SQuAD</div>
+                                    <div class="dataset-meta">
+                                        <span>阅读理解数据集</span>
+                                        <a href="https://rajpurkar.github.io/SQuAD-explorer/"
+                                            class="dataset-link">下载</a>
+                                    </div>
+                                </div>
+                                <div class="dataset-item">
+                                    <div class="dataset-name">GLUE</div>
+                                    <div class="dataset-meta">
+                                        <span>自然语言理解</span>
+                                        <a href="https://gluebenchmark.com/" class="dataset-link">下载</a>
+                                    </div>
+                                </div>
+                                <div class="dataset-item">
+                                    <div class="dataset-name">WikiText</div>
+                                    <div class="dataset-meta">
+                                        <span>语言建模</span>
+                                        <a href="https://blog.salesforceairesearch.com/the-wikitext-long-term-dependency-language-modeling-dataset/"
+                                            class="dataset-link">下载</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dataset-category">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-microphone"></i>
+                                </div>
+                                <h3 class="category-title">语音数据集</h3>
+                            </div>
+                            <div class="dataset-list">
+                                <div class="dataset-item">
+                                    <div class="dataset-name">LibriSpeech</div>
+                                    <div class="dataset-meta">
+                                        <span>1000小时英语语音</span>
+                                        <a href="http://www.openslr.org/12/" class="dataset-link">下载</a>
+                                    </div>
+                                </div>
+                                <div class="dataset-item">
+                                    <div class="dataset-name">Common Voice</div>
+                                    <div class="dataset-meta">
+                                        <span>多语言语音数据集</span>
+                                        <a href="https://commonvoice.mozilla.org/" class="dataset-link">下载</a>
+                                    </div>
+                                </div>
+                                <div class="dataset-item">
+                                    <div class="dataset-name">VoxCeleb</div>
+                                    <div class="dataset-meta">
+                                        <span>说话人识别</span>
+                                        <a href="https://www.robots.ox.ac.uk/~vgg/data/voxceleb/"
+                                            class="dataset-link">下载</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 开发工具 -->
+            <section id="dev-tools" class="card animate-fadeIn delay-300">
+                <div class="card-header">
+                    <h2 class="card-title">开发工具</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <img src="resources/github_copilot.png" alt="代码生成器" class="tool-image">
+                            <div class="tool-content">
+                                <h3 class="tool-title">GitHub Copilot</h3>
+                                <p class="tool-desc">
+                                    AI结对编程工具，根据上下文自动生成代码建议，支持多种编程语言，提高开发效率。
+                                </p>
+                                <div class="tool-footer">
+                                    <div class="tool-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <span>4.5</span>
+                                    </div>
+                                    <a href="https://github.com/features/copilot"
+                                        class="text-sm font-medium text-primary hover:underline">查看</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tool-card">
+                            <img src="resources/mlflow.png" alt="模型部署" class="tool-image">
+                            <div class="tool-content">
+                                <h3 class="tool-title">MLflow</h3>
+                                <p class="tool-desc">
+                                    机器学习生命周期管理平台，支持实验跟踪、模型打包和部署，简化从开发到生产的流程。
+                                </p>
+                                <div class="tool-footer">
+                                    <div class="tool-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <span>4.0</span>
+                                    </div>
+                                    <a href="https://mlflow.org/"
+                                        class="text-sm font-medium text-primary hover:underline">查看</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tool-card">
+                            <img src="resources/w&b.png" alt="可视化工具" class="tool-image">
+                            <div class="tool-content">
+                                <h3 class="tool-title">Weights & Biases</h3>
+                                <p class="tool-desc">
+                                    机器学习实验跟踪工具，提供可视化、协作和模型管理功能，支持超参数优化。
+                                </p>
+                                <div class="tool-footer">
+                                    <div class="tool-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <span>5.0</span>
+                                    </div>
+                                    <a href="https://wandb.ai/"
+                                        class="text-sm font-medium text-primary hover:underline">查看</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 学习资源 -->
+            <section id="learning" class="card">
+                <div class="card-header">
+                    <h2 class="card-title">学习资源</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="resource-tabs">
+                        <div class="resource-tab active" data-tab="beginner">入门</div>
+                        <div class="resource-tab" data-tab="intermediate">进阶</div>
+                        <div class="resource-tab" data-tab="advanced">高级</div>
+                    </div>
+
+                    <div class="resource-content active" id="beginner-content">
+                        <div class="resource-list">
+                            <a href="https://www.coursera.org/learn/machine-learning" target="_blank"
+                                class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h3>吴恩达《机器学习》课程</h3>
+                                    <div class="resource-meta">
+                                        <span>Coursera</span>
+                                        <span class="resource-level beginner">入门</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="https://www.oreilly.com/library/view/python-machine-learning/9781789955750/"
+                                target="_blank" class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h3>《Python机器学习手册》</h3>
+                                    <div class="resource-meta">
+                                        <span>电子书</span>
+                                        <span class="resource-level beginner">入门</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="https://www.bilibili.com/video/BV1JE411g7XF" target="_blank" class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fab fa-youtube"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h3>李宏毅《机器学习》中文课程</h3>
+                                    <div class="resource-meta">
+                                        <span>B站</span>
+                                        <span class="resource-level beginner">入门</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="resource-content" id="intermediate-content">
+                        <div class="resource-list">
+                            <a href="http://cs231n.stanford.edu/" target="_blank" class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h3>CS231n: 卷积神经网络与视觉识别</h3>
+                                    <div class="resource-meta">
+                                        <span>斯坦福大学</span>
+                                        <span class="resource-level intermediate">进阶</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="https://www.deeplearningbook.org/" target="_blank" class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h3>《深度学习》花书</h3>
+                                    <div class="resource-meta">
+                                        <span>Ian Goodfellow等</span>
+                                        <span class="resource-level intermediate">进阶</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="https://course.fast.ai/" target="_blank" class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h3>Fast.ai实战深度学习课程</h3>
+                                    <div class="resource-meta">
+                                        <span>在线课程</span>
+                                        <span class="resource-level intermediate">进阶</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="resource-content" id="advanced-content">
+                        <div class="resource-list">
+                            <a href="https://deeplearning.mit.edu/" target="_blank" class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h3>《深度学习进阶》课程</h3>
+                                    <div class="resource-meta">
+                                        <span>MIT 6.S897</span>
+                                        <span class="resource-level advanced">高级</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="http://neuralnetworksanddeeplearning.com/" target="_blank" class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h3>《神经网络与深度学习》</h3>
+                                    <div class="resource-meta">
+                                        <span>Michael Nielsen</span>
+                                        <span class="resource-level advanced">高级</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="https://www.deepmind.com/learning-resources" target="_blank" class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h3>高级强化学习研讨会</h3>
+                                    <div class="resource-meta">
+                                        <span>DeepMind</span>
+                                        <span class="resource-level advanced">高级</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="https://arxiv.org/abs/1706.03762" target="_blank" class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h3>Transformer架构专题论文</h3>
+                                    <div class="resource-meta">
+                                        <span>Google Research</span>
+                                        <span class="resource-level advanced">高级</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    </div>
+    </div>
+    </div>
+
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-logo">AI知识宇宙</div>
+                <p class="text-white/80">探索人工智能前沿，分享行业洞见</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="https://github.com/xiangrui1108/html_design"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="../nav1_timeline/timeline.html">发展轨迹</a></li>
+                    <li><a href="../nav2_news/news.html">行业动态</a></li>
+                    <li><a href="../nav3_examples/examples.html">案例展示</a></li>
+                    <li><a href="../nav4_papers/papers.html">文献汇总</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h3>资源中心</h3>
+                <ul>
+                    <li><a href="../nav5_tools/tools.html">开源框架</a></li>
+                    <li><a href="../nav5_tools/tools.html#platforms">在线平台</a></li>
+                    <li><a href="../nav5_tools/tools.html#datasets">数据集</a></li>
+                    <li><a href="../nav5_tools/tools.html#dev-tools">开发工具</a></li>
+                    <li><a href="../nav5_tools/tools.html#learning">学习资源</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h3>联系我们</h3>
+                <ul>
+                    <li><i class="fas fa-envelope mr-2"></i> seliu@whut.edu.cn</li>
+                    <li><i class="fas fa-phone mr-2"></i> +86 178 5396 1108</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> 珞狮路122号 武汉理工大学</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            © 2025 AI知识宇宙. 保留所有权利.
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.resource-tab');
+            const contents = document.querySelectorAll('.resource-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 移除所有active类
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    // 添加active类到当前选项卡
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-content`).classList.add('active');
+                });
+            });
+        });
+    </script>
+    <script src="../side_nav.js"></script>
+</body>
+
+</html>

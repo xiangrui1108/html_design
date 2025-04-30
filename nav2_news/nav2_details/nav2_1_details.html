@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../base_style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <title>OpenAI发布GPT-5多模态模型 | AI知识宇宙</title>
+    <style>
+        /* 详情页特定样式 */
+        .detail-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .detail-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+        }
+
+        .detail-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1A202C;
+            margin: 1.5rem 0;
+            line-height: 1.3;
+        }
+
+        .detail-meta {
+            color: #64748B;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .meta-divider {
+            margin: 0 0.75rem;
+            color: #CBD5E0;
+        }
+
+        .article-image {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+            transition: transform 0.3s ease;
+        }
+
+        .article-image:hover {
+            transform: scale(1.02);
+        }
+
+        .article-body {
+            line-height: 1.8;
+            color: #4B5563;
+            font-size: 1.1rem;
+        }
+
+        .article-body h3 {
+            color: #1A202C;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1.5rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .article-body h3:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.3em;
+            height: 1em;
+            width: 4px;
+            background: linear-gradient(to bottom, #3B82F6, #8B5CF6);
+            border-radius: 2px;
+        }
+
+        .article-body ul {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .article-body li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-body li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3B82F6;
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .tag-technical {
+            background-color: #EFF6FF;
+            color: #3B82F6;
+        }
+
+        .tag-innovation {
+            background-color: #ECFDF5;
+            color: #10B981;
+        }
+
+        .tag-news {
+            background-color: #FEF2F2;
+            color: #EF4444;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            color: #3B82F6;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-button:hover {
+            color: #2563EB;
+        }
+
+        .article-body a {
+            color: #3B82F6;
+            text-decoration: underline;
+        }
+
+        .article-body a:hover {
+            color: #2563EB;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- 导航栏 -->
+    <nav class="py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <img src="../../index_resources/logo.png" alt="logo" class="h-8 w-auto mr-[-56rem] mt-0">
+            <a href="#" class="text-xl font-bold">AI知识宇宙</a>
+            <div class="space-x-4">
+                <a href="../../nav1_timeline/timeline.html" class="hover:underline">发展轨迹</a>
+                <a href="../../nav2_news/news.html" class="hover:underline">行业动态</a>
+                <a href="../../nav3_examples/examples.html" class="hover:underline">案例展示</a>
+                <a href="../../nav4_papers/papers.html" class="hover:underline">文献汇总</a>
+                <a href="../../nav5_tools/tools.html" class="hover:underline">工具资源</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 详情页内容 -->
+    <div class="container mx-auto px-4 py-8">
+        <a href="..//news.html" class="back-button">
+            <i class="fas fa-arrow-left mr-2"></i> 返回行业动态
+        </a>
+
+        <div class="detail-content bg-white rounded-xl shadow-sm p-8">
+            <div class="detail-header">
+                <div class="flex justify-center mb-4">
+                    <span class="tag tag-technical">技术</span>
+                    <span class="tag tag-innovation">创新</span>
+                    <span class="tag tag-news">热点</span>
+                </div>
+                <h1 class="detail-title">OpenAI发布GPT-5多模态模型，支持视频理解与生成</h1>
+                <div class="detail-meta">
+                    <span>AI前沿编辑部</span>
+                    <span class="meta-divider">|</span>
+                    <span>2025-04-15</span>
+                    <span class="meta-divider">|</span>
+                    <span>阅读量: 24,568</span>
+                </div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="GPT-5发布会现场" class="article-image">
+
+            <div class="article-body">
+                <p>今日，OpenAI正式发布第五代通用人工智能模型GPT-5，首次实现多模态深度融合，支持文本、图像、视频、语音的联合处理。这一突破性进展标志着AI技术进入全新发展阶段。</p>
+
+                <h3>核心技术突破</h3>
+                <ul>
+                    <li><strong>动态跨模态注意力机制：</strong>实现不同模态数据的高效交互，处理效率提升300%</li>
+                    <li><strong>视频处理能力：</strong>支持1080p分辨率实时生成，帧速率达30fps，延迟低于200ms</li>
+                    <li><strong>语音识别：</strong>准确率提升至98.7%，支持20种方言混合输入及实时翻译</li>
+                    <li><strong>知识更新：</strong>内置知识截止至2025年3月，支持实时联网检索验证</li>
+                </ul>
+
+                <h3>行业应用前景</h3>
+                <p>据OpenAI官方透露，GPT-5已在多个领域展开试点应用：</p>
+                <ul>
+                    <li><strong>医疗诊断：</strong>结合医学影像与病历文本，辅助医生进行综合诊断</li>
+                    <li><strong>自动驾驶：</strong>实时解析多摄像头视频流，预测复杂交通场景</li>
+                    <li><strong>创意设计：</strong>根据文字描述生成完整视频故事板，大幅提升创作效率</li>
+                    <li><strong>教育培训：</strong>构建沉浸式互动学习环境，自动生成个性化教学内容</li>
+                </ul>
+
+                <h3>技术伦理考量</h3>
+                <p>OpenAI同时公布了GPT-5的<strong>7项安全防护措施</strong>，包括：</p>
+                <ul>
+                    <li>内容真实性验证水印系统</li>
+                    <li>深度伪造检测机制</li>
+                    <li>多层级内容过滤</li>
+                    <li>使用行为审计追踪</li>
+                </ul>
+                <p>公司CEO表示："我们致力于推动技术进步的同时，确保AI发展符合人类整体利益。"</p>
+
+                <div class="mt-12 pt-6 border-t border-gray-200">
+                    <p class="text-sm text-gray-500">本文为AI知识宇宙原创报道，转载请注明出处。了解更多AI前沿资讯，请关注我们的<a
+                            href="nav2_news/news.html">行业动态</a>栏目。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-logo">AI知识宇宙</div>
+                <p class="text-white/80">探索人工智能前沿，分享行业洞见</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="https://github.com/xiangrui1108/html_design"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-links">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="../../index.html">首页</a></li>
+                    <li><a href="../../nav1_timeline/timeline.html">发展轨迹</a></li>
+                    <li><a href="../../nav2_news/news.html">行业动态</a></li>
+                    <li><a href="../../nav3_examples/examples.html">案例展示</a></li>
+                    <li><a href="../../nav4_papers/papers.html">文献汇总</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>资源中心</h3>
+                <ul>
+                    <li><a href="../../nav5_tools/tools.html">开源框架</a></li>
+                    <li><a href="../../nav5_tools/tools.html#platforms">在线平台</a></li>
+                    <li><a href="../../nav5_tools/tools.html#datasets">数据集</a></li>
+                    <li><a href="../../nav5_tools/tools.html#dev-tools">开发工具</a></li>
+                    <li><a href="../../nav5_tools/tools.html#learning">学习资源</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>联系我们</h3>
+                <ul>
+                    <li><i class="fas fa-envelope mr-2"></i> seliu@whut.edu.cn</li>
+                    <li><i class="fas fa-phone mr-2"></i> +86 178 5396 1108</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> 珞狮路122号 武汉理工大学</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="copyright">
+            © 2025 AI知识宇宙. 保留所有权利.
+        </div>
+    </footer>
+</body>
+
+</html>

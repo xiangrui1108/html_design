@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI领域知识 - 前沿文献</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../base_style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007BFF;
+            --secondary: #00BFFF;
+            --accent: #FFC107;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        /* 导航栏样式 */
+        nav {
+            background: linear-gradient(90deg, #007BFF, #00BFFF);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav a {
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #FFC107;
+        }
+
+        /* 主容器 */
+        .main-container {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        /* 侧边导航 */
+        .side-nav {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            color: #475569;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .nav-item i {
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        /* 内容区域 */
+        .content-area {
+            display: grid;
+            gap: 2rem;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* 顶会论文表格 */
+        .paper-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .paper-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: #f1f5f9;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .paper-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .paper-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .paper-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .paper-authors {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .paper-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .keyword {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .paper-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .paper-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 预印本卡片 */
+        .preprint-card {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.3s ease;
+        }
+
+        .preprint-card:last-child {
+            border-bottom: none;
+        }
+
+        .preprint-card:hover {
+            background: #f8fafc;
+        }
+
+        .preprint-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .preprint-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .preprint-field {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            background: #e6f7ff;
+            color: #0056b3;
+        }
+
+        .preprint-field.nlp {
+            background: #e6f7e6;
+            color: #2e7d32;
+        }
+
+        .preprint-field.cv {
+            background: #fff8e1;
+            color: #ff8f00;
+        }
+
+        .preprint-field.rl {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .preprint-summary {
+            color: #475569;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        /* 技术综述 */
+        .survey-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .survey-category {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .survey-category:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .survey-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .survey-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .survey-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .survey-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .survey-item {
+            padding: 1rem;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .survey-item:hover {
+            background: #f1f5f9;
+        }
+
+        .survey-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .survey-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .survey-difficulty {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .survey-difficulty .stars {
+            color: #ffc107;
+        }
+
+        .survey-reason {
+            color: #475569;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        /* 论文解读 */
+        .tutorial-card {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.3s ease;
+        }
+
+        .tutorial-card:last-child {
+            border-bottom: none;
+        }
+
+        .tutorial-card:hover {
+            background: #f8fafc;
+        }
+
+        .tutorial-image {
+            width: 180px;
+            height: 220px;
+            border-radius: 8px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .tutorial-card:hover .tutorial-image {
+            transform: scale(1.03);
+        }
+
+        .tutorial-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .tutorial-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .tutorial-desc {
+            color: #475569;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .tutorial-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tutorial-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tutorial-button.primary {
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .tutorial-button.primary:hover {
+            background: rgba(0, 123, 255, 0.2);
+        }
+
+        .tutorial-button.secondary {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .tutorial-button.secondary:hover {
+            background: rgba(108, 117, 125, 0.2);
+        }
+
+        /* 文献工具 */
+        .tool-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .tool-item {
+            display: grid;
+            grid-template-columns: 40px 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .tool-item:hover {
+            background: #f8fafc;
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .tool-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1e293b;
+        }
+
+        .tool-desc {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .tool-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 页脚 */
+        footer {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .side-nav {
+                position: static;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .preprint-card,
+            .tutorial-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .survey-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <img src="../index_resources/logo.png" alt="logo" class="h-8 w-auto mr-[-56rem] mt-0">
+            <a href="#" class="text-xl font-bold">AI知识宇宙</a>
+            <div class="space-x-4">
+                <a href="../nav1_timeline/timeline.html" class="hover:underline">发展轨迹</a>
+                <a href="../nav2_news/news.html" class="hover:underline">行业动态</a>
+                <a href="../nav3_examples/examples.html" class="hover:underline">案例展示</a>
+                <a href="../nav4_papers/papers.html" class="hover:underline">文献汇总</a>
+                <a href="../nav5_tools/tools.html" class="hover:underline">工具资源</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 侧边导航 -->
+        <aside class="side-nav">
+            <a href="#conference-papers" class="nav-item active">
+                <i class="fas fa-file-alt"></i> 顶会论文
+            </a>
+            <a href="#preprints" class="nav-item">
+                <i class="fas fa-clock"></i> 预印本精选
+            </a>
+            <a href="#surveys" class="nav-item">
+                <i class="fas fa-book"></i> 技术综述
+            </a>
+            <a href="#tutorials" class="nav-item">
+                <i class="fas fa-chalkboard-teacher"></i> 论文解读
+            </a>
+            <a href="#literature-tools" class="nav-item">
+                <i class="fas fa-tools"></i> 文献工具
+            </a>
+        </aside>
+
+        <!-- 内容区域 -->
+        <main class="content-area">
+            <!-- 顶会论文 -->
+            <section id="conference-papers" class="card animate-fadeIn">
+                <div class="card-header">
+                    <h2 class="card-title">顶会论文</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <table class="paper-table">
+                        <thead>
+                            <tr>
+                                <th>论文标题</th>
+                                <th>作者</th>
+                                <th>关键词</th>
+                                <th>下载</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="paper-title">LLaMA: Open and Efficient Foundation Language Models</div>
+                                    <div class="paper-authors">Hugo Touvron, et al.</div>
+                                    <div class="paper-keywords">
+                                        <span class="keyword">大语言模型</span>
+                                        <span class="keyword">开源</span>
+                                        <span class="keyword">高效训练</span>
+                                    </div>
+                                </td>
+                                <td>Meta AI Research</td>
+                                <td>
+                                    <span class="keyword">NLP</span>
+                                    <span class="keyword">LLM</span>
+                                </td>
+                                <td>
+                                    <a href="https://arxiv.org/abs/2302.13971" class="paper-link">
+                                        <i class="fas fa-file-pdf"></i> PDF
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="paper-title">Segment Anything</div>
+                                    <div class="paper-authors">Alexander Kirillov, et al.</div>
+                                    <div class="paper-keywords">
+                                        <span class="keyword">图像分割</span>
+                                        <span class="keyword">基础模型</span>
+                                        <span class="keyword">零样本学习</span>
+                                    </div>
+                                </td>
+                                <td>Meta AI Research</td>
+                                <td>
+                                    <span class="keyword">CV</span>
+                                    <span class="keyword">Segmentation</span>
+                                </td>
+                                <td>
+                                    <a href="https://arxiv.org/abs/2304.02643" class="paper-link">
+                                        <i class="fas fa-file-pdf"></i> PDF
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="paper-title">PaLM: Scaling Language Modeling with Pathways</div>
+                                    <div class="paper-authors">Aakanksha Chowdhery, et al.</div>
+                                    <div class="paper-keywords">
+                                        <span class="keyword">大规模训练</span>
+                                        <span class="keyword">Pathways系统</span>
+                                        <span class="keyword">540B参数</span>
+                                    </div>
+                                </td>
+                                <td>Google Research</td>
+                                <td>
+                                    <span class="keyword">NLP</span>
+                                    <span class="keyword">LLM</span>
+                                </td>
+                                <td>
+                                    <a href="https://arxiv.org/abs/2204.02311" class="paper-link">
+                                        <i class="fas fa-file-pdf"></i> PDF
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 预印本精选 -->
+            <section id="preprints" class="card animate-fadeIn delay-100">
+                <div class="card-header">
+                    <h2 class="card-title">预印本精选</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="preprint-card">
+                        <div class="preprint-date">
+                            <img src="resources/arxiv.png" alt="reprint">
+                        </div>
+                        <div class="preprint-content">
+                            <span class="preprint-field nlp">自然语言处理</span>
+                            <h3>GPT-5: Scaling and Performance Analysis</h3>
+                            <p class="preprint-summary">
+                                本文详细分析了GPT-5的架构改进和性能表现，相比GPT-4在多模态理解和复杂推理任务上有显著提升...
+                            </p>
+                            <a href="https://arxiv.org/abs/2504.12345" class="paper-link">
+                                <i class="fas fa-file-pdf"></i> 查看预印本
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="preprint-card">
+                        <div class="preprint-date">
+                            <img src="resources/arxiv.png" alt="reprint">
+                        </div>
+                        <div class="preprint-content">
+                            <span class="preprint-field cv">计算机视觉</span>
+                            <h3>Diffusion Models for Video Generation</h3>
+                            <p class="preprint-summary">
+                                提出了一种新的视频生成扩散模型架构，在时间一致性和生成质量上达到SOTA水平，支持长视频生成...
+                            </p>
+                            <a href="https://arxiv.org/abs/2504.12346" class="paper-link">
+                                <i class="fas fa-file-pdf"></i> 查看预印本
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="preprint-card">
+                        <div class="preprint-date">
+                            <img src="resources/arxiv.png" alt="reprint">
+                        </div>
+                        <div class="preprint-content">
+                            <span class="preprint-field rl">强化学习</span>
+                            <h3>Self-Improving Reinforcement Learning Agents</h3>
+                            <p class="preprint-summary">
+                                介绍了一种能够自主改进策略的强化学习框架，在多个复杂环境中展示了持续学习能力...
+                            </p>
+                            <a href="https://arxiv.org/abs/2504.12347" class="paper-link">
+                                <i class="fas fa-file-pdf"></i> 查看预印本
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 技术综述 -->
+            <section id="surveys" class="card animate-fadeIn delay-200">
+                <div class="card-header">
+                    <h2 class="card-title">技术综述</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="survey-categories">
+                        <div class="survey-category">
+                            <div class="survey-header">
+                                <div class="survey-icon">
+                                    <i class="fas fa-language"></i>
+                                </div>
+                                <h3 class="survey-title">自然语言处理</h3>
+                            </div>
+                            <div class="survey-list">
+                                <div class="survey-item">
+                                    <div class="survey-name">大语言模型综述</div>
+                                    <div class="survey-meta">
+                                        <span>2025年3月</span>
+                                        <span class="survey-difficulty">
+                                            <span class="stars">★★★★</span>
+                                            <span>进阶</span>
+                                        </span>
+                                    </div>
+                                    <p class="survey-reason">
+                                        系统梳理了从GPT到GPT-5的演进历程，分析了架构创新和训练方法，包含200+参考文献。
+                                    </p>
+                                    <a href="#" class="paper-link">
+                                        <i class="fas fa-book-open"></i> 阅读综述
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="survey-category">
+                            <div class="survey-header">
+                                <div class="survey-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <h3 class="survey-title">计算机视觉</h3>
+                            </div>
+                            <div class="survey-list">
+                                <div class="survey-item">
+                                    <div class="survey-name">视觉Transformer综述</div>
+                                    <div class="survey-meta">
+                                        <span>2025年2月</span>
+                                        <span class="survey-difficulty">
+                                            <span class="stars">★★★</span>
+                                            <span>入门</span>
+                                        </span>
+                                    </div>
+                                    <p class="survey-reason">
+                                        详细介绍了ViT及其变体在计算机视觉中的应用，包含架构比较和性能分析。
+                                    </p>
+                                    <a href="#" class="paper-link">
+                                        <i class="fas fa-book-open"></i> 阅读综述
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="survey-category">
+                            <div class="survey-header">
+                                <div class="survey-icon">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <h3 class="survey-title">多模态学习</h3>
+                            </div>
+                            <div class="survey-list">
+                                <div class="survey-item">
+                                    <div class="survey-name">多模态基础模型综述</div>
+                                    <div class="survey-meta">
+                                        <span>2025年1月</span>
+                                        <span class="survey-difficulty">
+                                            <span class="stars">★★★★★</span>
+                                            <span>高级</span>
+                                        </span>
+                                    </div>
+                                    <p class="survey-reason">
+                                        全面分析了CLIP、Flamingo等模型的架构和训练方法，探讨了未来发展方向。
+                                    </p>
+                                    <a href="#" class="paper-link">
+                                        <i class="fas fa-book-open"></i> 阅读综述
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 论文解读 -->
+            <section id="tutorials" class="card animate-fadeIn delay-300">
+                <div class="card-header">
+                    <h2 class="card-title">论文解读</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="tutorial-card">
+                        <img src="resources/transformer.png" alt="Transformer论文解读" class="tutorial-image">
+                        <div class="tutorial-content">
+                            <h3>Attention Is All You Need 精读</h3>
+                            <div class="tutorial-meta">
+                                <span><i class="fas fa-user"></i> 张伟</span>
+                                <span><i class="fas fa-calendar-alt"></i> 2025-04-10</span>
+                                <span><i class="fas fa-eye"></i> 1.2k浏览</span>
+                            </div>
+                            <p class="tutorial-desc">
+                                详细解析Transformer架构的每个组件，包括自注意力机制、位置编码等，附带PyTorch实现代码。
+                            </p>
+                            <div class="tutorial-buttons">
+                                <a href="#" class="tutorial-button primary">
+                                    <i class="fas fa-file-alt"></i> 阅读文章
+                                </a>
+                                <a href="#" class="tutorial-button secondary">
+                                    <i class="fas fa-code"></i> 查看代码
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img src="resources/diffusion.png" alt="扩散模型解读" class="tutorial-image">
+                        <div class="tutorial-content">
+                            <h3>扩散模型从原理到实践</h3>
+                            <div class="tutorial-meta">
+                                <span><i class="fas fa-user"></i> 李娜</span>
+                                <span><i class="fas fa-calendar-alt"></i> 2025-04-05</span>
+                                <span><i class="fas fa-eye"></i> 2.4k浏览</span>
+                            </div>
+                            <p class="tutorial-desc">
+                                深入浅出讲解扩散模型的数学原理，包含DDPM、DDIM等变体的代码实现和效果对比。
+                            </p>
+                            <div class="tutorial-buttons">
+                                <a href="#" class="tutorial-button primary">
+                                    <i class="fas fa-file-alt"></i> 阅读文章
+                                </a>
+                                <a href="#" class="tutorial-button secondary">
+                                    <i class="fas fa-code"></i> 查看代码
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 文献工具 -->
+            <section id="literature-tools" class="card">
+                <div class="card-header">
+                    <h2 class="card-title">文献工具</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="tool-list">
+                        <div class="tool-item">
+                            <div class="tool-icon">
+                                <i class="fas fa-bookmark"></i>
+                            </div>
+                            <div class="tool-info">
+                                <h3>Zotero</h3>
+                                <p class="tool-desc">开源文献管理工具，支持PDF管理和引用生成</p>
+                            </div>
+                            <a href="https://www.zotero.org/" class="tool-link">
+                                官网 <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="tool-item">
+                            <div class="tool-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="tool-info">
+                                <h3>Semantic Scholar</h3>
+                                <p class="tool-desc">AI驱动的学术搜索引擎，提供论文影响力分析</p>
+                            </div>
+                            <a href="https://www.semanticscholar.org/" class="tool-link">
+                                官网 <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="tool-item">
+                            <div class="tool-icon">
+                                <i class="fas fa-highlighter"></i>
+                            </div>
+                            <div class="tool-info">
+                                <h3>Connected Papers</h3>
+                                <p class="tool-desc">可视化论文关联网络，发现相关研究</p>
+                            </div>
+                            <a href="https://www.connectedpapers.com/" class="tool-link">
+                                官网 <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-logo">AI知识宇宙</div>
+                <p class="text-white/80">探索人工智能前沿，分享行业洞见</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="https://github.com/xiangrui1108/html_design"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-links">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="../nav1_timeline/timeline.html">发展轨迹</a></li>
+                    <li><a href="../nav2_news/news.html">行业动态</a></li>
+                    <li><a href="../nav3_examples/examples.html">案例展示</a></li>
+                    <li><a href="../nav4_papers/papers.html">文献汇总</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>资源中心</h3>
+                <ul>
+                    <li><a href="../nav5_tools/tools.html">开源框架</a></li>
+                    <li><a href="../nav5_tools/tools.html#platforms">在线平台</a></li>
+                    <li><a href="../nav5_tools/tools.html#datasets">数据集</a></li>
+                    <li><a href="../nav5_tools/tools.html#dev-tools">开发工具</a></li>
+                    <li><a href="../nav5_tools/tools.html#learning">学习资源</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>联系我们</h3>
+                <ul>
+                    <li><i class="fas fa-envelope mr-2"></i> seliu@whut.edu.cn</li>
+                    <li><i class="fas fa-phone mr-2"></i> +86 178 5396 1108</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> 珞狮路122号 武汉理工大学</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="copyright">
+            © 2025 AI知识宇宙. 保留所有权利.
+        </div>
+    </footer>
+
+    <script src="../side_nav.js"></script>
+</body>
+</html>

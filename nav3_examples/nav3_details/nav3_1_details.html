@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI辅助医疗影像诊断系统 - AI领域知识</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../base_style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007BFF;
+            --secondary: #00BFFF;
+            --accent: #FFC107;
+            --medical: #10B981;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        /* 医疗主题色 */
+        .medical-bg {
+            background-color: var(--medical);
+        }
+
+        .medical-text {
+            color: var(--medical);
+        }
+
+        .medical-border {
+            border-color: var(--medical);
+        }
+
+        /* 案例头部 */
+        .case-header {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-header::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2310B981" opacity="0.1"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1z"/></svg>') no-repeat;
+            background-size: contain;
+            opacity: 0.2;
+        }
+
+        .case-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1A202C;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .case-tag {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--medical);
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .case-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            color: #4B5563;
+            font-size: 1rem;
+        }
+
+        .meta-item i {
+            margin-right: 0.5rem;
+            color: var(--medical);
+        }
+
+        /* 案例内容 */
+        .case-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1A202C;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .section-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.3em;
+            height: 1em;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--medical), #3B82F6);
+            border-radius: 2px;
+        }
+
+        .case-content {
+            line-height: 1.8;
+            color: #4B5563;
+            font-size: 1.1rem;
+        }
+
+        .case-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+        }
+
+        /* 特色功能 */
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--medical);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1A202C;
+        }
+
+        /* 技术架构 */
+        .tech-architecture {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 统计数据 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--medical);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #64748B;
+        }
+
+        /* 应用场景 */
+        .scenario-card {
+            display: flex;
+            align-items: flex-start;
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .scenario-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            color: var(--medical);
+            font-size: 1.25rem;
+        }
+
+        /* 视频展示 */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 返回按钮 */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            color: var(--medical);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-button:hover {
+            color: #0E9F6E;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <nav class="py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <img src="../../index_resources/logo.png" alt="logo" class="h-8 w-auto mr-[-56rem] mt-0">
+            <a href="#" class="text-xl font-bold">AI知识宇宙</a>
+            <div class="space-x-4">
+                <a href="../../nav1_timeline/timeline.html" class="hover:underline">发展轨迹</a>
+                <a href="../../nav2_news/news.html" class="hover:underline">行业动态</a>
+                <a href="../../nav3_examples/examples.html" class="hover:underline">案例展示</a>
+                <a href="../../nav4_papers/papers.html" class="hover:underline">文献汇总</a>
+                <a href="../../nav5_tools/tools.html" class="hover:underline">工具资源</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 案例详情内容 -->
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <a href="/cases" class="back-button">
+            <i class="fas fa-arrow-left mr-2"></i> 返回案例列表
+        </a>
+
+        <!-- 案例头部 -->
+        <div class="case-header">
+            <span class="case-tag">
+                <i class="fas fa-heartbeat mr-2"></i> 医疗健康
+            </span>
+            <h1 class="case-title">AI辅助医疗影像诊断系统</h1>
+
+            <div class="case-meta">
+                <div class="meta-item">
+                    <i class="fas fa-hospital"></i> 三甲医院合作项目
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt"></i> 2023年上线
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-map-marker-alt"></i> 全国10+三甲医院应用
+                </div>
+            </div>
+
+            <img src="../resources/yiliao.png" alt="AI辅助医疗影像诊断系统" class="case-image">
+        </div>
+
+        <!-- 案例概述 -->
+        <div class="case-section">
+            <h2 class="section-title">案例概述</h2>
+            <div class="case-content">
+                <p>AI辅助医疗影像诊断系统是一款基于深度学习技术的智能医疗影像分析平台，专门设计用于辅助放射科医生进行CT、MRI、X光等医学影像的诊断工作。系统通过先进的计算机视觉算法，能够自动识别和标注影像中的异常区域，为医生提供第二意见，显著提高诊断效率和准确率。
+                </p>
+
+                <p>该系统由我司与国内顶尖三甲医院放射科合作开发，经过两年多的临床验证和算法优化，目前已在全国10余家三甲医院投入使用，日均处理影像超过5000例，成为医生日常工作的重要辅助工具。</p>
+            </div>
+        </div>
+
+        <!-- 核心功能 -->
+        <div class="case-section">
+            <h2 class="section-title">核心功能</h2>
+            <div class="case-content">
+                <div class="feature-card">
+                    <h3 class="feature-title">1. 多模态影像分析</h3>
+                    <p>支持CT、MRI、X光、超声等多种医学影像模态的智能分析，针对不同影像特点采用专门优化的算法模型，确保分析精度。</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">2. 病灶自动检测与标注</h3>
+                    <p>自动识别影像中的可疑病灶区域，如肺部结节、脑部出血、骨折线等，并用不同颜色标注不同置信度区域，辅助医生快速定位问题。</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">3. 结构化报告生成</h3>
+                    <p>根据影像分析结果自动生成结构化诊断报告草案，包含病灶位置、大小、特征描述等关键信息，医生只需进行复核和修改，大幅减少报告撰写时间。</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">4. 紧急病例优先处理</h3>
+                    <p>系统可自动识别疑似脑卒中、肺栓塞等紧急病例，优先处理并提醒医生，缩短危急患者的等待时间，为抢救争取宝贵时间。</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">5. 随访影像对比</h3>
+                    <p>自动匹配患者历史影像，并对比病灶变化情况，量化评估治疗效果，辅助医生制定后续治疗方案。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 技术架构 -->
+        <div class="case-section">
+            <h2 class="section-title">技术架构</h2>
+            <div class="case-content">
+                <p>系统采用先进的深度学习技术架构，结合医疗影像特点进行了专门优化：</p>
+
+                <ul class="list-disc pl-6 space-y-2 mt-4">
+                    <li><strong>数据预处理层：</strong>采用专门设计的医学影像预处理流程，包括去噪、标准化、增强等操作，确保输入数据质量</li>
+                    <li><strong>核心算法层：</strong>基于U-Net++架构的3D分割网络，结合Transformer模块增强长距离依赖建模能力</li>
+                    <li><strong>后处理层：</strong>应用医学知识引导的规则引擎，过滤假阳性结果，提高系统特异性</li>
+                    <li><strong>部署架构：</strong>采用微服务架构，支持云端和本地化部署，满足不同医院的信息安全要求</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 应用效果 -->
+        <div class="case-section">
+            <h2 class="section-title">应用效果</h2>
+            <div class="case-content">
+                <p>经过一年多的临床应用，系统在多家合作医院取得了显著成效：</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">95.7%</div>
+                        <div class="stat-label">平均检测准确率</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">40%</div>
+                        <div class="stat-label">诊断效率提升</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">30%</div>
+                        <div class="stat-label">漏诊率降低</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">10+</div>
+                        <div class="stat-label">合作医院数量</div>
+                    </div>
+                </div>
+
+                <p>北京某三甲医院放射科主任评价："AI辅助系统的引入改变了我们的工作模式。以前医生需要花费大量时间在影像筛查上，现在系统能够快速定位可疑区域，我们只需重点关注这些区域并进行专业判断，工作效率提高了近40%，同时诊断一致性也显著提升。"
+                </p>
+            </div>
+        </div>
+
+        <!-- 应用场景 -->
+        <div class="case-section">
+            <h2 class="section-title">典型应用场景</h2>
+            <div class="case-content">
+                <div class="scenario-card">
+                    <div class="scenario-icon">
+                        <i class="fas fa-lungs"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">肺癌筛查</h3>
+                        <p>在低剂量CT肺癌筛查中，系统可自动检测3mm以上的肺结节，并分析其恶性概率，辅助医生早期发现肺癌病例。在某医院体检中心的应用中，已帮助发现多例早期肺癌，患者得到及时治疗。</p>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <div class="scenario-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">脑卒中评估</h3>
+                        <p>对于急性脑卒中患者，系统可在CT影像上快速识别出血或梗死区域，量化评估病灶体积，为溶栓治疗决策提供客观依据。在急诊科的应用中，平均缩短评估时间15分钟。</p>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <div class="scenario-icon">
+                        <i class="fas fa-bone"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">骨折检测</h3>
+                        <p>在X光平片检查中，系统可自动识别细微骨折线，特别是脊柱、肋骨等复杂部位的隐匿性骨折，减少漏诊。在某骨科医院的应用中，使骨折检出率提高了12%。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 视频展示 -->
+        <div class="case-section">
+            <h2 class="section-title">系统演示</h2>
+            <div class="case-content">
+                <div class="video-container">
+                    <iframe src="https://www.bilibili.com/video/BV1RG411W78A/?vd_source=2e63b80008650c10be18ef32557801a2" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                </div>
+                <p class="text-center text-gray-500">AI辅助医疗影像诊断系统操作演示视频</p>
+            </div>
+        </div>
+
+        <!-- 联系我们 -->
+        <div class="case-section">
+            <h2 class="section-title">合作咨询</h2>
+            <div class="case-content">
+                <p>如果您所在医院对本系统感兴趣，欢迎联系我们获取更多信息和演示安排：</p>
+
+                <div class="bg-white rounded-xl p-6 mt-4">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-semibold text-lg mb-2">联系方式</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-envelope mt-1 mr-2 text-gray-500"></i>
+                                    <span>medical-ai@example.com</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-phone mt-1 mr-2 text-gray-500"></i>
+                                    <span>400-888-9999</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-map-marker-alt mt-1 mr-2 text-gray-500"></i>
+                                    <span>北京市海淀区中关村科技园AI大厦15层</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="font-semibold text-lg mb-2">快速咨询</h3>
+                            <form>
+                                <div class="mb-3">
+                                    <input type="text" placeholder="您的姓名" class="w-full px-4 py-2 border rounded-lg">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" placeholder="电子邮箱" class="w-full px-4 py-2 border rounded-lg">
+                                </div>
+                                <button type="submit"
+                                    class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                                    提交咨询 <i class="fas fa-paper-plane ml-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-logo">AI知识宇宙</div>
+                <p class="text-white/80">探索人工智能前沿，分享行业洞见</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="https://github.com/xiangrui1108/html_design"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-links">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="../../index.html">首页</a></li>
+                    <li><a href="../../nav1_timeline/timeline.html">发展轨迹</a></li>
+                    <li><a href="../../nav2_news/news.html">行业动态</a></li>
+                    <li><a href="../../nav3_examples/examples.html">案例展示</a></li>
+                    <li><a href="../../nav4_papers/papers.html">文献汇总</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>资源中心</h3>
+                <ul>
+                    <li><a href="../../nav5_tools/tools.html">开源框架</a></li>
+                    <li><a href="../../nav5_tools/tools.html#platforms">在线平台</a></li>
+                    <li><a href="../../nav5_tools/tools.html#datasets">数据集</a></li>
+                    <li><a href="../../nav5_tools/tools.html#dev-tools">开发工具</a></li>
+                    <li><a href="../../nav5_tools/tools.html#learning">学习资源</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>联系我们</h3>
+                <ul>
+                    <li><i class="fas fa-envelope mr-2"></i> seliu@whut.edu.cn</li>
+                    <li><i class="fas fa-phone mr-2"></i> +86 178 5396 1108</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> 珞狮路122号 武汉理工大学</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="copyright">
+            © 2025 AI知识宇宙. 保留所有权利.
+        </div>
+    </footer>
+</body>
+
+</html>

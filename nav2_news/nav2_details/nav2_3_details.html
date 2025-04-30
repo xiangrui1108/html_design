@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国际AI峰会2025 - AI知识宇宙</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../base_style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <style>
+        /* 活动详情页特定样式 */
+        .event-detail-header {
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(102, 16, 242, 0.1));
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .event-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1A202C;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .event-date-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #3B82F6;
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            color: #4B5563;
+            font-size: 1rem;
+        }
+
+        .meta-item i {
+            margin-right: 0.5rem;
+            color: #64748B;
+        }
+
+        .event-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+        }
+
+        .event-content {
+            line-height: 1.8;
+            color: #4B5563;
+            font-size: 1.1rem;
+        }
+
+        .event-content h3 {
+            color: #1A202C;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1.5rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .event-content h3:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.3em;
+            height: 1em;
+            width: 4px;
+            background: linear-gradient(to bottom, #3B82F6, #8B5CF6);
+            border-radius: 2px;
+        }
+
+        .event-content ul {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .event-content li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .event-content li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3B82F6;
+            font-weight: bold;
+        }
+
+        .speaker-card {
+            display: flex;
+            align-items: flex-start;
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .speaker-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1.5rem;
+        }
+
+        .speaker-info h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .speaker-title {
+            color: #64748B;
+            margin-bottom: 0.75rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed #E2E8F0;
+        }
+
+        .schedule-time {
+            min-width: 100px;
+            font-weight: 600;
+            color: #3B82F6;
+        }
+
+        .schedule-content {
+            flex: 1;
+        }
+
+        .register-form {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+        }
+
+        .submit-btn {
+            background: #3B82F6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #2563EB;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            color: #3B82F6;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-button:hover {
+            color: #2563EB;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- 导航栏 -->
+    <nav class="py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <img src="../../index_resources/logo.png" alt="logo" class="h-8 w-auto mr-[-56rem] mt-0">
+            <a href="#" class="text-xl font-bold">AI知识宇宙</a>
+            <div class="space-x-4">
+                <a href="../../nav1_timeline/timeline.html" class="hover:underline">发展轨迹</a>
+                <a href="../../nav2_news/news.html" class="hover:underline">行业动态</a>
+                <a href="../../nav3_examples/examples.html" class="hover:underline">案例展示</a>
+                <a href="../../nav4_papers/papers.html" class="hover:underline">文献汇总</a>
+                <a href="../../nav5_tools/tools.html" class="hover:underline">工具资源</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 活动详情内容 -->
+    <div class="container mx-auto px-4 py-8">
+        <a href="nav2_news/news.html" class="back-button">
+            <i class="fas fa-arrow-left mr-2"></i> 返回活动预告
+        </a>
+
+        <div class="bg-white rounded-xl shadow-sm p-8">
+            <!-- 活动头部信息 -->
+            <div class="event-detail-header">
+                <span class="event-date-badge">
+                    <i class="far fa-calendar-alt mr-2"></i> 2025年2月10日-11日
+                </span>
+                <h1 class="event-title">人工智能行动峰会2025</h1>
+
+                <div class="event-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-map-marker-alt"></i> paris
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-users"></i> 预计参会人数: 1,200+
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-tag"></i> 人工智能 · 机器学习 · 技术创新
+                    </div>
+                </div>
+
+                <a href="#register"
+                    class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                    立即报名 <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+
+            <!-- 活动主图 -->
+            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="国际AI峰会" class="event-image">
+
+            <!-- 活动详情内容 -->
+            <div class="event-content">
+                <p>人工智能行动峰会2025是最具影响力的人工智能盛会，本次峰会将汇集全球AI领域的顶尖专家、企业家和创新者，围绕大模型、计算机视觉、机器人技术等前沿主题展开深入讨论。为期三天的活动包括主题演讲、技术研讨会、创新展示和行业交流等丰富内容。
+                </p>
+
+                <h3>活动亮点</h3>
+                <ul>
+                    <li><strong>前沿技术展示：</strong>体验最新AI技术和应用场景</li>
+                    <li><strong>行业领袖对话：</strong>与全球AI领域顶尖专家面对面交流</li>
+                    <li><strong>创新项目路演：</strong>发现最具潜力的AI初创企业和项目</li>
+                    <li><strong>人才交流：</strong>连接AI领域优秀人才与企业</li>
+                    <li><strong>专题研讨会：</strong>深入探讨AI在各行业的应用实践</li>
+                </ul>
+
+                <h3>特邀嘉宾</h3>
+
+                <div class="speaker-card">
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="张教授" class="speaker-avatar">
+                    <div class="speaker-info">
+                        <h4>张明华 教授</h4>
+                        <p class="speaker-title">清华大学人工智能研究院院长</p>
+                        <p>张教授是深度学习领域的国际权威，曾获ACM图灵奖。她将分享"下一代AI系统的挑战与机遇"。</p>
+                    </div>
+                </div>
+
+                <div class="speaker-card">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="John Smith" class="speaker-avatar">
+                    <div class="speaker-info">
+                        <h4>John Smith</h4>
+                        <p class="speaker-title">OpenAI首席技术官</p>
+                        <p>John将带来"大模型技术的最新进展与未来发展方向"的主题演讲。</p>
+                    </div>
+                </div>
+
+                <div class="speaker-card">
+                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="李博士" class="speaker-avatar">
+                    <div class="speaker-info">
+                        <h4>李静 博士</h4>
+                        <p class="speaker-title">DeepSeek研究院院长</p>
+                        <p>李博士将分享"多模态AI在医疗领域的创新应用"。</p>
+                    </div>
+                </div>
+
+                <h3>活动日程</h3>
+
+                <div class="schedule-item">
+                    <div class="schedule-time">09:00-09:30</div>
+                    <div class="schedule-content">
+                        <strong>开幕式</strong>
+                        <p>主办方致辞 & 嘉宾介绍</p>
+                    </div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-time">09:30-10:30</div>
+                    <div class="schedule-content">
+                        <strong>主题演讲：AI的未来十年</strong>
+                        <p>张明华 教授 | 清华大学</p>
+                    </div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-time">10:45-12:00</div>
+                    <div class="schedule-content">
+                        <strong>专题讨论：大模型技术前沿</strong>
+                        <p>主持人：王立新 | 参与嘉宾：John Smith(OpenAI)、李静(DeepSeek)等</p>
+                    </div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-time">13:30-15:00</div>
+                    <div class="schedule-content">
+                        <strong>平行分论坛</strong>
+                        <p>分论坛A：计算机视觉最新进展<br>
+                            分论坛B：自然语言处理应用实践<br>
+                            分论坛C：AI伦理与治理</p>
+                    </div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-time">15:30-17:00</div>
+                    <div class="schedule-content">
+                        <strong>创新项目路演</strong>
+                        <p>10家AI初创企业展示最新技术和产品</p>
+                    </div>
+                </div>
+
+                <h3>参会指南</h3>
+                <ul>
+                    <li><strong>地点：</strong>上海国际会议中心3楼宴会厅</li>
+                    <li><strong>交通：</strong>地铁2号线陆家嘴站1号出口步行5分钟</li>
+                    <li><strong>住宿：</strong>组委会协议酒店：上海国际会议中心酒店（享受参会优惠价）</li>
+                    <li><strong>着装：</strong>商务休闲</li>
+                    <li><strong>语言：</strong>中英双语（提供同声传译）</li>
+                </ul>
+
+                <!-- 报名表单 -->
+                <div id="register" class="register-form">
+                    <h3 class="text-2xl font-bold mb-6">活动报名</h3>
+
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label class="form-label">姓名 *</label>
+                                <input type="text" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">公司/机构 *</label>
+                                <input type="text" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">职位 *</label>
+                                <input type="text" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">邮箱 *</label>
+                                <input type="email" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">手机 *</label>
+                                <input type="tel" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">参会类型 *</label>
+                                <select class="form-input" required>
+                                    <option value="">请选择</option>
+                                    <option value="general">普通参会 (¥2,800)</option>
+                                    <option value="student">学生票 (¥1,200)</option>
+                                    <option value="sponsor">赞助商代表</option>
+                                    <option value="speaker">演讲嘉宾</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-6">
+                            <label class="form-label">特别需求</label>
+                            <textarea class="form-input" rows="3"></textarea>
+                        </div>
+
+                        <div class="mt-8">
+                            <button type="submit" class="submit-btn">
+                                提交报名 <i class="fas fa-paper-plane ml-2"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-logo">AI知识宇宙</div>
+                <p class="text-white/80">探索人工智能前沿，分享行业洞见</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="https://github.com/xiangrui1108/html_design"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-links">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="../../index.html">首页</a></li>
+                    <li><a href="../../nav1_timeline/timeline.html">发展轨迹</a></li>
+                    <li><a href="../../nav2_news/news.html">行业动态</a></li>
+                    <li><a href="../../nav3_examples/examples.html">案例展示</a></li>
+                    <li><a href="../../nav4_papers/papers.html">文献汇总</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>资源中心</h3>
+                <ul>
+                    <li><a href="../../nav5_tools/tools.html">开源框架</a></li>
+                    <li><a href="../../nav5_tools/tools.html#platforms">在线平台</a></li>
+                    <li><a href="../../nav5_tools/tools.html#datasets">数据集</a></li>
+                    <li><a href="../../nav5_tools/tools.html#dev-tools">开发工具</a></li>
+                    <li><a href="../../nav5_tools/tools.html#learning">学习资源</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>联系我们</h3>
+                <ul>
+                    <li><i class="fas fa-envelope mr-2"></i> seliu@whut.edu.cn</li>
+                    <li><i class="fas fa-phone mr-2"></i> +86 178 5396 1108</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> 珞狮路122号 武汉理工大学</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="copyright">
+            © 2025 AI知识宇宙. 保留所有权利.
+        </div>
+    </footer>
+</body>
+
+</html>

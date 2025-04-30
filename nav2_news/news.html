@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI领域知识 - 行业动态</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../base_style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007BFF;
+            --secondary: #00BFFF;
+            --accent: #FFC107;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        /* 主容器 */
+        .main-container {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        /* 侧边导航 */
+        .side-nav {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            color: #475569;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .nav-item i {
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        /* 内容区域 */
+        .content-area {
+            display: grid;
+            gap: 2rem;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* 新闻卡片 */
+        .news-card {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.3s ease;
+        }
+
+        .news-card:last-child {
+            border-bottom: none;
+        }
+
+        .news-card:hover {
+            background: #f8fafc;
+        }
+
+        .news-image {
+            width: 120px;
+            height: 140px;
+            border-radius: 8px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover .news-image {
+            transform: scale(1.03);
+        }
+
+        .news-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .news-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .news-desc {
+            color: #475569;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .news-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .news-link:hover {
+            color: #0056b3;
+        }
+
+        /* 热点话题 */
+        .topic-card {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .topic-card:last-child {
+            border-bottom: none;
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .topic-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .topic-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .tag.tech {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .tag.ethics {
+            background: #ecfccb;
+            color: #3f6212;
+        }
+
+        .tag.business {
+            background: #fce7f3;
+            color: #be185d;
+        }
+
+        .topic-content {
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        /* 企业动态 */
+        .company-card {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .company-card:last-child {
+            border-bottom: none;
+        }
+
+        .company-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            object-fit: contain;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .company-card:hover .company-logo {
+            transform: scale(1.1);
+        }
+
+        .company-info {
+            flex: 1;
+        }
+
+        .company-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .company-desc {
+            color: #64748b;
+            margin-bottom: 0.75rem;
+        }
+
+        /* 活动预告 */
+        .event-card {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .event-card:last-child {
+            border-bottom: none;
+        }
+
+        .event-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .event-day {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .event-month {
+            font-size: 0.875rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .event-details h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .event-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .event-desc {
+            color: #475569;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+       
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .side-nav {
+                position: static;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .news-card, .event-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-image {
+                width: 100%;
+                height: 180px;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <img src="../index_resources/logo.png" alt="logo" class="h-8 w-auto mr-[-56rem] mt-0">
+            <a href="#" class="text-xl font-bold">AI知识宇宙</a>
+            <div class="space-x-4">
+                <a href="../nav1_timeline/timeline.html" class="hover:underline">发展轨迹</a>
+                <a href="../nav2_news/news.html" class="hover:underline">行业动态</a>
+                <a href="../nav3_examples/examples.html" class="hover:underline">案例展示</a>
+                <a href="../nav4_papers/papers.html" class="hover:underline">文献汇总</a>
+                <a href="../nav5_tools/tools.html" class="hover:underline">工具资源</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 侧边导航 -->
+        <aside class="side-nav">
+            <a href="#latest-news" class="nav-item active">
+                <i class="fas fa-newspaper"></i> 最新动态
+            </a>
+            <a href="#hot-topics" class="nav-item">
+                <i class="fas fa-fire"></i> 热点追踪
+            </a>
+            <a href="#company-updates" class="nav-item">
+                <i class="fas fa-building"></i> 企业动态
+            </a>
+            <a href="#event-preview" class="nav-item">
+                <i class="fas fa-calendar-alt"></i> 活动预告
+            </a>
+        </aside>
+
+        <!-- 内容区域 -->
+        <main class="content-area">
+            <!-- 最新动态 -->
+            <section id="latest-news" class="card animate-fadeIn">
+                <div class="card-header">
+                    <h2 class="card-title">最新动态</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="news-card">
+                        <img src="resources/gpt5.png" alt="AI技术" class="news-image">
+                        <div class="news-content">
+                            <h3>OpenAI发布GPT-5预览版，多模态能力大幅提升</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 2025-04-15</span>
+                                <span><i class="far fa-user"></i> OpenAI官方</span>
+                                <span><i class="far fa-eye"></i> 2.4k浏览</span>
+                            </div>
+                            <p class="news-desc">
+                                OpenAI今日正式发布GPT-5预览版，新增多模态输入输出功能，支持图像、语音与文本的联合处理，在复杂逻辑推理和创造性任务上表现显著提升...
+                            </p>
+                            <a href="nav2_details\nav2_1_details.html" class="news-link">
+                                阅读全文 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="news-card">
+                        <img src="resources/lunli.png" alt="AI法规" class="news-image">
+                        <div class="news-content">
+                            <h3>某国出台AI伦理法规，规范数据使用</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 2025-04-10</span>
+                                <span><i class="far fa-user"></i> XX新闻网</span>
+                                <span><i class="far fa-eye"></i> 1.8k浏览</span>
+                            </div>
+                            <p class="news-desc">
+                                某国政府近日颁布了新的AI伦理法规，对AI系统的数据收集、存储和使用进行了严格规范，以确保数据隐私和安全...
+                            </p>
+                            <a href="nav2_details\nav2_1_details.html" class="news-link">
+                                阅读全文 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="news-card">
+                        <img src="resources/ds.png" alt="机器人" class="news-image">
+                        <div class="news-content">
+                            <h3>DeepSeek发布新一代机器人操作系统</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 2025-04-05</span>
+                                <span><i class="far fa-user"></i> DeepSeek团队</span>
+                                <span><i class="far fa-eye"></i> 3.2k浏览</span>
+                            </div>
+                            <p class="news-desc">
+                                DeepSeek今日发布全新机器人操作系统，结合大语言模型与强化学习，使机器人能够更自然地理解人类指令并完成复杂任务...
+                            </p>
+                            <a href="nav2_details\nav2_1_details.html" class="news-link">
+                                阅读全文 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热点追踪 -->
+            <section id="hot-topics" class="card animate-fadeIn delay-100">
+                <div class="card-header">
+                    <h2 class="card-title">热点追踪</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="topic-card">
+                        <div class="topic-header">
+                            <h3 class="topic-title">AI绘画引发的版权争议解读</h3>
+                            <div class="topic-tags">
+                                <span class="tag tech">技术</span>
+                                <span class="tag ethics">伦理</span>
+                            </div>
+                        </div>
+                        <div class="topic-content">
+                            <p>近年来，AI绘画技术迅速发展，但也引发了一系列版权争议。本文将深入探讨这些争议的根源和可能的解决方案...</p>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-sm text-gray-500">热度: 高</span>
+                                <a href="nav2_details/nav2_2_details.html" class="text-sm font-medium text-primary hover:underline">查看讨论</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="topic-card">
+                        <div class="topic-header">
+                            <h3 class="topic-title">自动驾驶事故背后的技术反思</h3>
+                            <div class="topic-tags">
+                                <span class="tag tech">技术</span>
+                                <span class="tag business">商业</span>
+                            </div>
+                        </div>
+                        <div class="topic-content">
+                            <p>最近一起自动驾驶事故引起了广泛关注，我们需要反思当前自动驾驶技术存在的问题和挑战，以及如何改进...</p>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-sm text-gray-500">热度: 极高</span>
+                                <a href="nav2_details/nav2_2_details.html" class="text-sm font-medium text-primary hover:underline">查看讨论</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="topic-card">
+                        <div class="topic-header">
+                            <h3 class="topic-title">AI是否会取代人类工作？最新研究分析</h3>
+                            <div class="topic-tags">
+                                <span class="tag tech">技术</span>
+                                <span class="tag ethics">伦理</span>
+                                <span class="tag business">商业</span>
+                            </div>
+                        </div>
+                        <div class="topic-content">
+                            <p>MIT最新研究表明，AI更可能改变而非完全取代人类工作。报告分析了800种职业的未来发展趋势...</p>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-sm text-gray-500">热度: 中</span>
+                                <a href="nav2_details/nav2_2_details.html" class="text-sm font-medium text-primary hover:underline">查看讨论</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 企业动态 -->
+            <section id="company-updates" class="card animate-fadeIn delay-200">
+                <div class="card-header">
+                    <h2 class="card-title">企业动态</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="company-card">
+                        <img src="resources/openai.png" alt="OpenAI Logo" class="company-logo">
+                        <div class="company-info">
+                            <h3 class="company-name">OpenAI</h3>
+                            <p class="company-desc">发布了新的开发者工具包，助力开发者快速构建AI应用。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">2025-04-18</span>
+                                <a href="https://openai.com" class="text-sm font-medium text-primary hover:underline">官网详情</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="company-card">
+                        <img src="resources/Google.png" alt="Google Logo" class="company-logo">
+                        <div class="company-info">
+                            <h3 class="company-name">Google</h3>
+                            <p class="company-desc">宣布收购某AI初创公司，加强其在计算机视觉领域的布局。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">2025-04-12</span>
+                                <a href="https://google.com" class="text-sm font-medium text-primary hover:underline">官网详情</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="company-card">
+                        <img src="resources/deepseek.png" alt="DeepSeek Logo" class="company-logo">
+                        <div class="company-info">
+                            <h3 class="company-name">DeepSeek</h3>
+                            <p class="company-desc">推出全新AI开发平台，支持多模态模型训练与部署。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">2025-04-08</span>
+                                <a href="#" class="text-sm font-medium text-primary hover:underline">官网详情</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 活动预告 -->
+            <section id="event-preview" class="card animate-fadeIn delay-300">
+                <div class="card-header">
+                    <h2 class="card-title">活动预告</h2>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">查看更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="event-day">01-03</span>
+                            <span class="event-month">五月</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>国际AI峰会2025</h3>
+                            <div class="event-location">
+                                <i class="fas fa-map-marker-alt"></i> 上海国际会议中心
+                            </div>
+                            <p class="event-desc">
+                                本次峰会将汇集全球AI领域的顶尖专家和企业家，围绕大模型、计算机视觉、机器人技术等主题展开深入讨论...
+                            </p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">剩余: 12天</span>
+                                <a href="nav2_details/nav2_3_details.html" class="text-sm font-medium text-primary hover:underline">立即报名</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="event-day">10-11</span>
+                            <span class="event-month">五月</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>全球AI开发者挑战赛</h3>
+                            <div class="event-location">
+                                <i class="fas fa-map-marker-alt"></i> 线上+线下
+                            </div>
+                            <p class="event-desc">
+                                某高校举办的AI竞赛报名开始，欢迎全球开发者参与。比赛涵盖自然语言处理、计算机视觉等多个赛道...
+                            </p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">剩余: 21天</span>
+                                <a href="nav2_details/nav2_3_details.html" class="text-sm font-medium text-primary hover:underline">立即报名</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="event-day">22-24</span>
+                            <span class="event-month">五月</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>AI伦理与治理研讨会</h3>
+                            <div class="event-location">
+                                <i class="fas fa-map-marker-alt"></i> 北京国家会议中心
+                            </div>
+                            <p class="event-desc">
+                                探讨AI技术发展中的伦理挑战和治理框架，邀请政策制定者、技术专家和伦理学者共同参与...
+                            </p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">剩余: 33天</span>
+                                <a href="nav2_details/nav2_3_details.html" class="text-sm font-medium text-primary hover:underline">立即报名</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-logo">AI知识宇宙</div>
+                <p class="text-white/80">探索人工智能前沿，分享行业洞见</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="https://github.com/xiangrui1108/html_design"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-links">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="../nav1_timeline/timeline.html">发展轨迹</a></li>
+                    <li><a href="../nav2_news/news.html">行业动态</a></li>
+                    <li><a href="../nav3_examples/examples.html">案例展示</a></li>
+                    <li><a href="../nav4_papers/papers.html">文献汇总</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>资源中心</h3>
+                <ul>
+                    <li><a href="../nav5_tools/tools.html">开源框架</a></li>
+                    <li><a href="../nav5_tools/tools.html#platforms">在线平台</a></li>
+                    <li><a href="../nav5_tools/tools.html#datasets">数据集</a></li>
+                    <li><a href="../nav5_tools/tools.html#dev-tools">开发工具</a></li>
+                    <li><a href="../nav5_tools/tools.html#learning">学习资源</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>联系我们</h3>
+                <ul>
+                    <li><i class="fas fa-envelope mr-2"></i> seliu@whut.edu.cn</li>
+                    <li><i class="fas fa-phone mr-2"></i> +86 178 5396 1108</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> 珞狮路122号 武汉理工大学</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="copyright">
+            © 2025 AI知识宇宙. 保留所有权利.
+        </div>
+    </footer>
+    <script src="../side_nav.js"></script>
+</body>
+
+</html>
