@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POST请求示例</title>
+</head>
+
+<body>
+  <input type="text" id="modelName" placeholder="请输入模型名称">
+  <input type="file" id="imageUpload" multiple>
+  <button onclick="sendRequest()">发送请求</button>
+  <textarea id="resultText" rows="10" cols="50"></textarea>
+
+  <script>
+    function sendRequest() {
+      const modelName = document.getElementById('modelName').value;
+      const imageUpload = document.getElementById('imageUpload');
+      const formData = new FormData();
+
+      // 添加模型名称，键名为 model_name
+      formData.append('model_name', modelName);
+
+      // 添加上传的图片，键名为 files
+      for (let i = 0; i < imageUpload.files.length; i++) {
+        formData.append('files', imageUpload.files[i]);
+      }
+
+      fetch('http://localhost:12560/inference', {
+        method: 'POST',
+        // headers: {
+        //       'Accept': '*/*',
+        //       'Content-Type': 'application/json',
+        //       'connection':'keep-alive'
+        //       },
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+          const resultText = document.getElementById('resultText');
+          resultText.value = data;
+        })
+      .catch(error => {
+          console.error('请求出错:', error);
+          const resultText = document.getElementById('resultText');
+          resultText.value = '请求出错: ' + error.message;
+        });
+    }
+  </script>
+</body>
+
+</html>

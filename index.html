@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="base_style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <title>AI知识宇宙</title>
+    <style>
+        /* 英雄区域样式 */
+        .hero {
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.7), rgba(102, 16, 242, 0.7)), url('index_resources/hero_bg.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 14rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero button {
+            background: linear-gradient(90deg, #FFC107, #FFA000);
+            color: #333;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.25rem;
+            transition: background 0.3s ease;
+        }
+
+        .hero button:hover {
+            background: linear-gradient(90deg, #FFA000, #FFC107);
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: linear-gradient(180deg, #f8f9fa, #e9ecef);
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card .icon {
+            background: -webkit-linear-gradient(90deg, #007BFF, #00BFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: #777;
+        }
+
+        .card a {
+            color: #007BFF;
+            transition: color 0.3s ease;
+        }
+
+        .card a:hover {
+            color: #0056b3;
+        }
+
+        /* 大模型调优卡片悬停背景 */
+        .card[data-field="large-model"]:hover {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('E:/000/41.新媒体设计实验/个人网站设计/index_resources/LLM.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* 图像分类卡片悬停背景 */
+        .card[data-field="image-classification"]:hover {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('E:/000/41.新媒体设计实验/个人网站设计/index_resources/classify.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* 目标检测卡片悬停背景 */
+        .card[data-field="object-detection"]:hover {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('E:/000/41.新媒体设计实验/个人网站设计/index_resources/detect.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* 自然语言处理卡片悬停背景 */
+        .card[data-field="nlp"]:hover {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('E:/000/41.新媒体设计实验/个人网站设计/index_resources/NLP.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* 语音识别卡片悬停背景 */
+        .card[data-field="speech-recognition"]:hover {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('E:/000/41.新媒体设计实验/个人网站设计/index_resources/SR.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* 强化学习卡片悬停背景 */
+        .card[data-field="reinforcement-learning"]:hover {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('E:/000/41.新媒体设计实验/个人网站设计/index_resources/RL.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* 卡片悬停时隐藏介绍内容 */
+        .card:hover p,
+        .card:hover a {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- 导航栏 -->
+    <nav class="py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <img src="index_resources/logo.png" alt="logo" class="h-8 w-auto mr-[-56rem] mt-0">
+            <a href="#" class="text-xl font-bold">AI知识宇宙</a>
+            <div class="space-x-4">
+                <a href="nav1_timeline/timeline.html" class="hover:underline">发展轨迹</a>
+                <a href="nav2_news/news.html" class="hover:underline">行业动态</a>
+                <a href="nav3_examples/examples.html" class="hover:underline">案例展示</a>
+                <a href="nav4_papers/papers.html" class="hover:underline">文献汇总</a>
+                <a href="nav5_tools/tools.html" class="hover:underline">工具资源</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="container mx-auto px-4">
+            <h1>探索AI领域的无限可能</h1>
+            <p>了解最新的AI技术和应用，开启你的AI之旅。</p>
+            <button id="exploreButton">开始探索</button>
+        </div>
+    </section>
+
+    <!-- 主内容区域 -->
+    <div class="container mx-auto px-4 py-8" id="domainSection">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">热门领域介绍</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- 大模型调优 -->
+            <a href="index_details/LLM.html" class="card p-6 block" data-field="large-model">
+                <i class="fa-solid fa-cog icon"></i>
+                <h2>大模型调优</h2>
+                <p>大模型调优涉及对大规模预训练模型进行优化和调整，以提高其在特定任务上的性能。</p>
+                <span class="text-blue-600 hover:underline">了解更多</span>
+            </a>
+    
+            <!-- 图像分类 -->
+            <a href="index_details/classify.html" class="card p-6 block" data-field="image-classification">
+                <i class="fa-solid fa-images icon"></i>
+                <h2>图像分类</h2>
+                <p>图像分类是指将图像分配到预定义的类别中，是计算机视觉中的基础任务。</p>
+                <span class="text-blue-600 hover:underline">了解更多</span>
+            </a>
+    
+            <!-- 目标检测 -->
+            <a href="index_details/detect.html" class="card p-6 block" data-field="object-detection">
+                <i class="fa-solid fa-search icon"></i>
+                <h2>目标检测</h2>
+                <p>目标检测是在图像或视频中识别特定对象的位置和类别。</p>
+                <span class="text-blue-600 hover:underline">了解更多</span>
+            </a>
+    
+            <!-- 自然语言处理 -->
+            <a href="index_details/NLP.html" class="card p-6 block" data-field="nlp">
+                <i class="fa-solid fa-language icon"></i>
+                <h2>自然语言处理</h2>
+                <p>自然语言处理是让计算机理解、处理和生成人类语言的技术。</p>
+                <span class="text-blue-600 hover:underline">了解更多</span>
+            </a>
+    
+            <!-- 语音识别 -->
+            <a href="index_details/SR.html" class="card p-6 block" data-field="speech-recognition">
+                <i class="fa-solid fa-microphone icon"></i>
+                <h2>语音识别</h2>
+                <p>语音识别是将人类语音转换为文本的技术，广泛应用于智能助手等场景。</p>
+                <span class="text-blue-600 hover:underline">了解更多</span>
+            </a>
+    
+            <!-- 强化学习 -->
+            <a href="index_details/RL.html" class="card p-6 block" data-field="reinforcement-learning">
+                <i class="fa-solid fa-gamepad icon"></i>
+                <h2>强化学习</h2>
+                <p>强化学习是智能体通过与环境交互并根据奖励信号来学习最优行为策略的方法。</p>
+                <span class="text-blue-600 hover:underline">了解更多</span>
+            </a>
+        </div>
+    </div>
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-logo">AI知识宇宙</div>
+                <p class="text-white/80">探索人工智能前沿，分享行业洞见</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="https://github.com/xiangrui1108/html_design"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-links">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="nav1_timeline/timeline.html">发展轨迹</a></li>
+                    <li><a href="nav2_news/news.html">行业动态</a></li>
+                    <li><a href="nav3_examples/examples.html">案例展示</a></li>
+                    <li><a href="nav4_papers/papers.html">文献汇总</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>资源中心</h3>
+                <ul>
+                    <li><a href="nav5_tools/tools.html">开源框架</a></li>
+                    <li><a href="nav5_tools/tools.html#platforms">在线平台</a></li>
+                    <li><a href="nav5_tools/tools.html#datasets">数据集</a></li>
+                    <li><a href="nav5_tools/tools.html#dev-tools">开发工具</a></li>
+                    <li><a href="nav5_tools/tools.html#learning">学习资源</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-links">
+                <h3>联系我们</h3>
+                <ul>
+                    <li><i class="fas fa-envelope mr-2"></i> seliu@whut.edu.cn</li>
+                    <li><i class="fas fa-phone mr-2"></i> +86 178 5396 1108</li>
+                    <li><i class="fas fa-map-marker-alt mr-2"></i> 珞狮路122号 武汉理工大学</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="copyright">
+            © 2025 AI知识宇宙. 保留所有权利.
+        </div>
+    </footer>
+
+    <script>
+        const exploreButton = document.getElementById('exploreButton');
+        const domainSection = document.getElementById('domainSection');
+
+        exploreButton.addEventListener('click', () => {
+            domainSection.scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+
+</html>
+    
